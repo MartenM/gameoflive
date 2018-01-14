@@ -147,5 +147,9 @@ public class Game {
 
     public void setUpdateTime(int updateTime) {
         this.updateTime = updateTime;
+
+        if(task != null){
+            start();
+        }
     }
 }

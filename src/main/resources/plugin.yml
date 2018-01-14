@@ -6,4 +6,4 @@ description: Game Of Live in minecraft!
 commands:
   gameoflive:
     description: Game of live commands.
-    aliases: gof
+    aliases: gol
