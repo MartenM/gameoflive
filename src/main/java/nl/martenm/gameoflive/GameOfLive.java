@@ -33,7 +33,7 @@ public class GameOfLive extends JavaPlugin {
     }
 
     public void registerCommands(){
-        getCommand("gameoflive").setExecutor(new LiveCommand(this));
+        getCommand("gameoflife").setExecutor(new LiveCommand(this));
     }
 
     public void registerEvents(){

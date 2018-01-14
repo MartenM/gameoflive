@@ -1,9 +1,9 @@
 main: nl.martenm.gameoflive.GameOfLive
-name: GameOfLive
-version: 1.0.0
+name: GameOfLife
+version: 1.0.1
 author: MartenM
 description: Game Of Live in minecraft!
 commands:
-  gameoflive:
+  gameoflife:
     description: Game of live commands.
     aliases: gol

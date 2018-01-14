@@ -2,6 +2,7 @@ package nl.martenm.gameoflive.commands;
 
 import nl.martenm.gameoflive.GameOfLive;
 import nl.martenm.gameoflive.objects.Game;
+import nl.martenm.gameoflive.objects.Game3D;
 import nl.martenm.gameoflive.objects.Point;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -47,16 +48,25 @@ public class LiveCommand implements CommandExecutor {
 
             int height;
             int width;
+            int depth = 0;
             try{
                 height = Integer.parseInt(args[2]);
                 width = Integer.parseInt(args[3]);
+
+                if(args.length == 5){
+                    depth = Integer.parseInt(args[4]);
+                }
             } catch (NumberFormatException ex){
                 sender.sendMessage(ChatColor.RED + "Those are not numbers >:|");
                 return true;
             }
 
             Location loc = player.getLocation();
-            Game game = new Game(plugin, args[1], height, width);
+            Game game = null;
+            if(args.length == 5){
+                game = new Game3D(plugin, args[1], height, width, depth);
+            } else game = new Game(plugin, args[1], height, width);
+
             if(!plugin.getGamesManager().add(game)){
                 sender.sendMessage(ChatColor.RED + "Already a game with such an id!");
                 return true;
