@@ -3,6 +3,7 @@ package nl.martenm.gameoflive.commands;
 import nl.martenm.gameoflive.GameOfLive;
 import nl.martenm.gameoflive.objects.Game;
 import nl.martenm.gameoflive.objects.Game3D;
+import nl.martenm.gameoflive.objects.GameFrames;
 import nl.martenm.gameoflive.objects.Point;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -65,7 +66,8 @@ public class LiveCommand implements CommandExecutor {
             Game game = null;
             if(args.length == 5){
                 game = new Game3D(plugin, args[1], height, width, depth);
-            } else game = new Game(plugin, args[1], height, width);
+            } else if(args.length > 5) game = new GameFrames(plugin, args[1], height, width, depth);
+            else game = new Game(plugin, args[1], height, width);
 
             if(!plugin.getGamesManager().add(game)){
                 sender.sendMessage(ChatColor.RED + "Already a game with such an id!");
@@ -111,12 +113,30 @@ public class LiveCommand implements CommandExecutor {
                     }
                     break;
 
+                case "clear":
+                    game.clearTop();
+                    sender.sendMessage(ChatColor.GREEN + "Successfully cleared the top of arena: " + ChatColor.WHITE + game.getId());
+                    break;
+
                 case "remove":
                 case "delete":
                     plugin.getGamesManager().removeById(game.getId());
                     sender.sendMessage(ChatColor.GREEN + "Successfully removed the arena with ID: " + ChatColor.WHITE + game.getId());
                     break;
 
+                case "maxframes":
+                    if(!(game instanceof GameFrames)){
+                        sender.sendMessage(ChatColor.RED + "This can only be used on games that have this option :P");
+                        break;
+                    }
+
+                    GameFrames gameFrames = (GameFrames) game;
+                    try {
+                        gameFrames.setMaxFrames(Integer.parseInt(args[3]));
+                    } catch (Exception ex) {
+                        sender.sendMessage(ChatColor.RED + "No number given or not even a valid one :3");
+                    }
+                    break;
                 default:
                     sender.sendMessage(ChatColor.RED + "Valid arguments: " + ChatColor.WHITE + "/gol game <id> <start/stop/time/delete>");
                     break;

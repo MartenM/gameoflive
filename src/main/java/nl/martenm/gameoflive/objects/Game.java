@@ -24,7 +24,7 @@ public class Game {
     private String id;
 
     private Point origin;
-    private BukkitTask task;
+    protected BukkitTask task;
 
     private int height;
     private int width;
